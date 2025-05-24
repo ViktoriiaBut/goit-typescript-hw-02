@@ -1,15 +1,20 @@
-import { useState } from "react";
+import { useState, FC } from "react";
 import toast from "react-hot-toast";
 import s from "./SearchBar.module.css";
 import { IoSearch } from "react-icons/io5";
 
-const SearchBar = ({ onSubmit, disabled }) => {
-    const [query, setQuery] = useState("")
-    function handlChange(e) {
+interface SearchBarProps {
+  onSubmit: (query: string) => void;
+  disabled: boolean;
+}
+
+const SearchBar: FC<SearchBarProps> = ({ onSubmit, disabled }) => {
+    const [query, setQuery] = useState<string>("")
+    function handlChange(e: React.ChangeEvent<HTMLInputElement>) {
         setQuery(e.target.value)
     }
 
-    function handleSubmit(e) {
+    function handleSubmit(e: React.FormEvent<HTMLFormElement> ) {
         e.preventDefault()
         const trQuery = query.trim()
         if (trQuery === "") {

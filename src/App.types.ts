@@ -5,9 +5,14 @@ export interface Image {
         small: string;
         regular: string;
     };
+    likes: number;
+  user: {
+    name: string;
+  };
 }
 
 export interface Response {
   total_pages: number;
   results: Image[];
 };
+

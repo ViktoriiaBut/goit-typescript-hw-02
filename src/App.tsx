@@ -101,9 +101,10 @@ const App = () => {
         <LoadMoreBtn onClick={addLoadMore} loadMore={isLoadingMore} />
       )}
 
-      <ImageModal isOpen={isModalOpen} image={selectedImage} onClose={closeModal} onClick={handleClick}/>
+      <ImageModal isOpen={isModalOpen} image={selectedImage} onClose={closeModal} />
     </>
   );
 };
 
 export default App;
+

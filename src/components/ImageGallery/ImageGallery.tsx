@@ -1,24 +1,11 @@
 import ImageCard from "../ImageCard/ImageCard";
 import s from "./ImageGallery.module.css";
-
-
-interface Image {
- id: string | number;
- name: string;
- likes: number;
- user: {
-    name: string;
-  };
-  urls: {
-    small: string;
-    regular: string;
-  };
-}
+import { Image } from "../../App.types"
 
 
 interface ImageProps {
   images: Image[];
-  onImageClick: (imageUrl: string) => void; 
+  onImageClick: (images: string) => void; 
 }
 
 const ImageGallery = ({ images, onImageClick }: ImageProps) => {
