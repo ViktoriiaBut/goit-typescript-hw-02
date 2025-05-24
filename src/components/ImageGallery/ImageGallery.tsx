@@ -1,7 +1,27 @@
 import ImageCard from "../ImageCard/ImageCard";
 import s from "./ImageGallery.module.css";
 
-const ImageGallery = ({ images, onImageClick }) => {
+
+interface Image {
+ id: string | number;
+ name: string;
+ likes: number;
+ user: {
+    name: string;
+  };
+  urls: {
+    small: string;
+    regular: string;
+  };
+}
+
+
+interface ImageProps {
+  images: Image[];
+  onImageClick: (imageUrl: string) => void; 
+}
+
+const ImageGallery = ({ images, onImageClick }: ImageProps) => {
     if (!Array.isArray(images)) {
            return null; 
     }

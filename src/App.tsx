@@ -7,26 +7,30 @@ import Loader from "./components/Loader/Loader";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageModal from "./components/ImageModal/ImageModal";
+import { Image, Response } from "./App.types";
 
 const KEY = "qPFeK_Yb8bseog7rmNx9ZiEqmz3TMS6gci6wwcZRweY";
 
 const App = () => {
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [query, setQuery] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [images, setImages] = useState<Image[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
+  const [hasError, setHasError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [query, setQuery] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const fetchImages = async (searchQuery, newPage = 1, isLoadMore = false) => {
+  const fetchImages = async (searchQuery: string,
+      newPage: number = 1,
+      isLoadMore: boolean = false)
+      : Promise<void> => {
     try {
       isLoadMore ? setIsLoadingMore(true) : setIsLoading(true);
       setHasError(false);
 
-      const response = await axios.get("https://api.unsplash.com/search/photos", {
+      const response = await axios.get<Response>("https://api.unsplash.com/search/photos", {
         params: {
           query: searchQuery,
           page: newPage,
@@ -34,6 +38,7 @@ const App = () => {
           client_id: KEY,
         },
       });
+
 
       if (response.data.results.length === 0) {
         toast.error("Nothing found!");
@@ -60,7 +65,7 @@ const App = () => {
   };
 
   
-  const handleSearch = newQuery => {
+  const handleSearch = (newQuery: string) => {
     setImages([]);
     setPage(1);
     fetchImages(newQuery, 1);
@@ -76,7 +81,7 @@ const App = () => {
     
   };
 
-  function handleClick (image) {
+  function handleClick (image: string) {
     setSelectedImage(image);
     setIsModalOpen(true);
     openModal();
